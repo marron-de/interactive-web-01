@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <title>Fast Bank</title>
+</head>
+
+<body>
+  <div id="main-img-wrapper">
+    <img width="320" src="./Lovepik_com-401339128-data-management-data-analysis-icon-free-vector-illustration-mate.png"
+      alt="coding image">
+  </div>
+
+  <div id="intro-main">
+    <p>이미 모두의 은행, 패스트뱅크</p>
+    <p>함께 일해요.</p>
+    <p id="join-us-text">Join us!</p>
+    <img id="down-arrow-icon" src="./down-arrow.png" alt="down arrow icon">
+  </div>
+
+  <ul id="list-item-wrapper">
+    <li class="list-item">26주적금</li>
+    <li class="list-item">저금</li>
+    <li class="list-item">패스트캠퍼스</li>
+    <li class="list-item">떡볶이</li>
+    <li class="list-item">치킨</li>
+    <li class="list-item">축구</li>
+    <li class="list-item">축구선수</li>
+    <li class="list-item">마이너스통장대출</li>
+    <li class="list-item">26주적금</li>
+    <li class="list-item">저금</li>
+    <li class="list-item">패스트캠퍼스</li>
+    <li class="list-item">떡볶이</li>
+    <li class="list-item">치킨</li>
+    <li class="list-item">축구</li>
+    <li class="list-item">축구선수</li>
+    <li class="list-item">마이너스통장대출</li>
+    <li class="list-item">26주적금</li>
+    <li class="list-item">저금</li>
+    <li class="list-item">패스트캠퍼스</li>
+    <li class="list-item">떡볶이</li>
+    <li class="list-item">치킨</li>
+    <li class="list-item">축구</li>
+    <li class="list-item">축구선수</li>
+    <li class="list-item">마이너스통장대출</li>
+    <li class="list-item">26주적금</li>
+    <li class="list-item">저금</li>
+    <li class="list-item">패스트캠퍼스</li>
+    <li class="list-item">떡볶이</li>
+    <li class="list-item">치킨</li>
+    <li class="list-item">축구</li>
+    <li class="list-item">축구선수</li>
+    <li class="list-item">마이너스통장대출</li>
+  </ul>
+
+  <main>
+
+    <section id="panel1-img">
+      <img id="flying-santa-image" src="./santa_flying.png" alt="santa flying">
+    </section>
+
+    <section id="video-section">
+      <div id="fixed-wrapper">
+        <video id="video" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+          type="video/mp4" muted loop></video>
+        <div id="fixed-description">
+          <div>혁신이 만든</div>
+          <div>압도적인 성장</div>
+        </div>
+      </div>
+    </section>
+
+    <div id="bank-beyond-wrapper">
+      <div id="bank-beyond">
+        <img width="315" src="./05-text.png" alt="sample text">
+      </div>
+    </div>
+
+    <div id="white-wrapper">
+      <div id="slider-container">
+        <div id="slider-content-wrapper">
+          <div id="slider-content">
+            <img src="https://picsum.photos/id/1/600/933" class="slider-image" alt="">
+            <img src="https://picsum.photos/id/59/600/933" class="slider-image" alt="">
+            <img src="https://picsum.photos/id/89/600/933" class="slider-image" alt="">
+          </div>
+        </div>
+        <div class="slider-button" id="left-button">&lt;</div>
+        <div class="slider-button" id="right-button">&gt;</div>
+        <div id="slider-index">1/3</div>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+
+<script>
+
+  // 1.scroll on add
+  const listStyleChangeStartY = 373
+  const listStyleChangeEndY = 1585
+  const listItems = document.querySelectorAll('.list-item')
+  const division = (listStyleChangeEndY - listStyleChangeStartY) / listItems.length // listitem 각각의 높이
+
+
+  // 2.scroll element move
+  const panel1Img = document.getElementById('panel1-img')
+  const flyingSantaImage = document.getElementById('flying-santa-image')
+
+
+  // 3.scroll video play & fixed
+  const videoPlayBack = 500 // 숫자가 스크롤이 길어지고 영상이 느려진다
+  const videoElement = document.getElementById('video')
+  const videoSection = document.getElementById("video-section")
+
+  const fixedWrapper = document.getElementById("fixed-wrapper")
+  const fixedDescription = document.getElementById("fixed-description")
+
+
+ 
+  function centerElement(elementId, video) {  // 화면 중앙 fixed 
+    const element = document.getElementById(elementId);
+    const parent = element.parentElement;
+
+    if (window.scrollY > parent.offsetTop - ((document.documentElement.clientHeight - element.offsetHeight) / 2)) {
+		// 부모요소 스크롤 위치 - 요소가 중앙에 위치할때 상단 여백을 뺀 위치 => 요소가 화면 중앙일때 위치
+      element.style.position = "fixed";
+      element.style.top = "50%"
+      element.style.left = "50%"
+      element.style.transform = "translate(-50%, -50%)"
+
+      if (video) video.currentTime = (window.scrollY - videoSection.offsetTop) / videoPlayBack 
+    } else {
+      element.style.position = "relative"
+      element.style.top = "initial"
+      element.style.left = "initial"
+      element.style.transform = "initial"
+    }
+  }
+
+  videoElement.addEventListener("loadedmetadata", () => {
+    document.getElementById("video-section").style.height = videoElement.duration * videoPlayBack + "px";
+  })
+
+  const fixedDescriptionAppearTiming = 3470
+  const fixedDescriptionAppearEnds = 3800
+
+  window.addEventListener("scroll", () => {
+
+
+	// 1.scroll on add
+    if (document.getElementById("on")) document.getElementById("on").removeAttribute("id")
+
+    if (window.scrollY > listStyleChangeStartY && window.scrollY < listStyleChangeEndY) {
+      const targetIndex = Math.round((window.scrollY - listStyleChangeStartY) / division) // 스크롤에 따른 요소 index
+
+      if (listItems[targetIndex]) listItems[targetIndex].id = "on"
+    }
+
+
+	// 2.scroll element move
+    const scrollYBottom = window.scrollY + document.documentElement.clientHeight // 스크롤 화면 바닥
+
+    if (scrollYBottom > panel1Img.offsetTop && scrollYBottom < panel1Img.offsetTop + panel1Img.offsetHeight + 100) {
+      const translateX = 80 - 80 * 1.3 * (scrollYBottom - panel1Img.offsetTop) / (panel1Img.offsetHeight + 100) 
+      const translateY = -13 + 13 * (scrollYBottom - panel1Img.offsetTop) / (panel1Img.offsetHeight + 100)
+      const rotationDegree = 23 - 23 * 1.7 * (scrollYBottom - panel1Img.offsetTop) / (panel1Img.offsetHeight + 100)
+	  // 합이 0이 되어야하고, 1.7은 변화하는 정도, 뒷부분은 요소의 전체 높이에서 요소의 높이를 나눠서 그 영역에 얼만된 스크롤이 되었는지 구하기
+
+      flyingSantaImage.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotationDegree}deg)`
+    }
+
+
+	// 3.scroll video play & fixed
+    centerElement("fixed-wrapper", videoElement)
+
+    if (window.scrollY > videoSection.offsetTop + videoSection.offsetHeight - (fixedWrapper.offsetHeight + (document.documentElement.clientHeight - fixedWrapper.offsetHeight) / 2)) {
+	  // 비디오 영역이 끝난 위치 이후에 고정영역 높이와 아래 여백 높이를 더한 값을 뺀 위치 => 영상이 끝나고 아래의 여백이 중앙보다 더 스크롤 되는 위치
+      fixedWrapper.style.position = "relative"
+      fixedWrapper.style.top = "initial"
+      fixedWrapper.style.left = "initial"
+      fixedWrapper.style.transform = `translateY(${videoSection.offsetHeight - fixedWrapper.offsetHeight}px)`
+    }
+
+    if (window.scrollY > fixedDescriptionAppearTiming && window.scrollY < fixedDescriptionAppearEnds) { // 비디오 영역 중 텍스트 영역에 도달했을때
+		
+      fixedDescription.style.transform = `translateY(${fixedDescriptionAppearEnds - window.scrollY}px)` //  스크롤 다되면 translateY(0px)이 되게끔
+      fixedDescription.style.opacity = (window.scrollY - fixedDescriptionAppearTiming) / 500 // 숫자가 클수록 느려짐
+
+    } else if (window.scrollY > fixedDescriptionAppearEnds) { // 비디오 영역 끝났을때
+
+      fixedDescription.style.transform = `translateY(0px)`
+      fixedDescription.style.opacity = 1
+
+    } else { // 비디오 영역 이전에
+
+      fixedDescription.style.transform = `translateY(100px)`
+      fixedDescription.style.opacity = 0
+
+    }
+
+	// 3.scroll fixed
+    centerElement("bank-beyond")
+  })
+
+
+
+// 4.slide
+  let currentImage = 0
+
+  const sliderImages = document.querySelectorAll('.slider-image')
+  const sliderIndex = document.getElementById('slider-index')
+
+  const handleSlideChange = (step) => {
+    currentImage += step
+
+    if (currentImage < 0) {
+      currentImage = sliderImages.length - 1 // 마지막 슬라이드로 이동
+    } else if (currentImage >= sliderImages.length) { 
+      currentImage = 0 // 첫번째 슬라이드로 이동
+    }
+
+    sliderContentWrapper.scrollLeft = sliderImages[currentImage].offsetLeft
+  }
+
+  document.getElementById("left-button").addEventListener("click", () => {
+    handleSlideChange(-1)
+  })
+  document.getElementById("right-button").addEventListener("click", () => {
+    handleSlideChange(1)
+  })
+
+  const sliderContentWrapper = document.getElementById("slider-content-wrapper")
+
+  sliderContentWrapper.addEventListener("scroll", () => {
+    const imageWidth = document.querySelectorAll('.slider-image')[0].offsetWidth
+
+    currentImage = Math.round(sliderContentWrapper.scrollLeft / imageWidth) // 슬라이드 인덱스
+    sliderIndex.innerText = `${currentImage + 1}/${sliderImages.length}`
+  })
+
+
+
+</script>
+
+</html>
